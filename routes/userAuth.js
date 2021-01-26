@@ -25,14 +25,15 @@ const createUser = async (req = request, res = response) => {
     if (validate.errors)
       return res.status(400).json({ clientError: validate.errors });
     const body = validate.validatedBody;
-    const checkEmail = await User.findOne({ email: body.email });
+    const checkEmail = await User.findOne({ email: body.signUpEmail });
     if (checkEmail) {
       errors.push({ key: "email", errorMessage: "That email already exist" });
       return res.status(400).json({ clientError: errors });
     } else {
-      const hashPassword = await argon2.hash(body.password);
+      const hashPassword = await argon2.hash(body.signUpPassword);
       const newUser = await new User({
-        ...body,
+        name: body.signUpName,
+        email: body.signUpEmail,
         password: hashPassword,
       }).save();
       return res.status(201).json(newUser);

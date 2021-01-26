@@ -21,7 +21,7 @@ const corsOptions = {
 app.use(cors());
 app.use(express.json());
 
-const MONGO_URI = process.env.MONGO_URI; //mongo uri is hidded provide your own mongo uri
+const MONGO_URI = "mongodb://127.0.0.1:27017" || process.env.MONGO_URI; //mongo uri is hidded provide your own mongo uri
 mongoose.connect(
   MONGO_URI,
   {

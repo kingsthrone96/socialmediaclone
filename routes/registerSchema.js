@@ -1,20 +1,20 @@
 module.exports = {
-    name: {
-        type: 'string',
-        isAbsolute: true,
-        min: 3,
-        required: true
-    },
+  signUpName: {
+    type: "string",
+    isAbsolute: true,
+    min: 3,
+    required: true,
+  },
 
-    email: {
-        type: 'string',
-        min: 10,
-        required: true
-    },
+  signUpEmail: {
+    type: "string",
+    min: 10,
+    required: true,
+  },
 
-    password: {
-        type: 'string',
-        min: 6,
-        required: true
-    }
-}
+  signUpPassword: {
+    type: "string",
+    min: 6,
+    required: true,
+  },
+};
