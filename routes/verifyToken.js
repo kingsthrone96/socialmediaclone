@@ -8,7 +8,7 @@ require('dotenv').config();
 
 module.exports = (req = request, res = response, next) => {
     try {
-        const auth = req.header('authorization');
+        const auth = req.header('authToken');
         if(!auth) return res.status(401).json({ authorizationError: 'Not Authorized!!!'});
 
         jwt.verify(auth, process.env.SECRET, { }, async (err, decoded) => {
@@ -22,6 +22,6 @@ module.exports = (req = request, res = response, next) => {
             next();
         })
     } catch (error) {
-        res.status(200).json({ serverError: error.message });
+        res.status(200).json({ jwtError: error.message });
     }
 }

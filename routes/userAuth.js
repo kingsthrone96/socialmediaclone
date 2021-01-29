@@ -46,18 +46,18 @@ const createUser = async (req = request, res = response) => {
 const loginUser = async (req = request, res = response) => {
   try {
     let errors = [];
-    const { email, password } = req.body;
-    if (!email) {
+    const { loginEmail, loginPassword } = req.body;
+    if (!loginEmail) {
       errors.push({ key: "email", errorMessage: "Please enter your email" });
       return res.status(400).json({ clientError: errors });
-    } else if (!password) {
+    } else if (!loginPassword) {
       errors.push({
         key: "password",
         errorMessage: "Please enter your password",
       });
       return res.status(400).json({ clientError: errors });
     } else {
-      const checkEmail = await User.findOne({ email });
+      const checkEmail = await User.findOne({ email: loginEmail });
       if (!checkEmail) {
         errors.push({
           key: "email",
@@ -68,7 +68,7 @@ const loginUser = async (req = request, res = response) => {
         const currentUser = checkEmail;
         const deHashedPassword = await argon2.verify(
           currentUser.password,
-          password
+          loginPassword
         );
         if (!deHashedPassword) {
           errors.push({
