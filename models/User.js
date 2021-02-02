@@ -15,11 +15,18 @@ module.exports = mongoose.connection.useDb("socialNetworking").model(
         postPictures: [],
         allPhotos: [],
       },
+    },
 
-      posts: {
+    posts: [
+      {
+        post_id: String,
         textContent: String,
         photo: String,
         likes: Number,
+        date: {
+          type: Date,
+          default: Date.now,
+        },
         comments: [
           {
             name: String,
@@ -28,7 +35,7 @@ module.exports = mongoose.connection.useDb("socialNetworking").model(
           },
         ],
       },
-    },
+    ],
   }),
   "users"
 );

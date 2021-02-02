@@ -7,7 +7,7 @@ dotenv.config();
 
 const { request, response } = express();
 
-const User = require("../models/Users");
+const User = require("../models/User");
 const Validation = require("../libraries/validation");
 const Schema = require("./registerSchema");
 

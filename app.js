@@ -21,7 +21,7 @@ const corsOptions = {
 app.use(cors());
 app.use(express.json());
 
-const MONGO_URI = "mongodb://127.0.0.1:27017" || process.env.MONGO_URI; //mongo uri is hidded provide your own mongo uri
+const MONGO_URI = "mongodb://127.0.0.1:27017"; //mongo uri is hidded provide your own mongo uri
 mongoose.connect(
   MONGO_URI,
   {
@@ -38,5 +38,5 @@ connection.once("open", () => console.log("Connected to Mongo Atlas"));
 const routes = require("./routes/router");
 app.use("/", routes);
 
-const PORT = process.env.PORT || 9000;
+const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server started at port ${PORT}`));
