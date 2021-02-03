@@ -9,7 +9,7 @@ const { homepage, logout, post, getPosts } = require("./requestAPI");
 route.post("/createUser", createUser);
 route.post("/loginUser", loginUser);
 route.post("/postSomething", verifyToken, post);
-route.get("/getPosts", getPosts);
+route.get("/getAllUsersPosts", getPosts);
 route.get("/logout", logout);
 
 route.get("/homepage", verifyToken, homepage);

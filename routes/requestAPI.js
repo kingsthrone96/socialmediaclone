@@ -18,7 +18,10 @@ const post = async (req = request, res = response) => {
       {
         $push: {
           posts: {
-            post_id: req.currentUser._id,
+            ref: {
+              ref_id: req.currentUser._id,
+              ref_name: req.currentUser.name,
+            },
             ...post,
           },
         },
@@ -27,7 +30,9 @@ const post = async (req = request, res = response) => {
         new: true,
       }
     );
-    res.status(201).json({ message: "post successfully added", updatedUser });
+    const userPosts = updatedUser.posts;
+    const newPost = userPosts[userPosts.length - 1];
+    res.status(201).json({ message: "post successfully added", newPost });
   } catch (error) {
     res.status(400).send(error.message);
   }
@@ -41,7 +46,7 @@ const getPosts = async (req = request, res = response) => {
       users.forEach((userPosts) => {
         usersPosts.push(...userPosts.posts);
       });
-      const sortedPosts = usersPosts.sort((a, b) => a.date - b.date);
+      const sortedPosts = usersPosts.sort((a, b) => b.date - a.date);
       res.send(sortedPosts);
     } else res.send(usersPosts);
   } catch (error) {
