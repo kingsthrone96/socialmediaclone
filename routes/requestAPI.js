@@ -34,6 +34,7 @@ const post = async (req = request, res = response) => {
     const newPost = userPosts[userPosts.length - 1];
     res.status(201).json({ message: "post successfully added", newPost });
   } catch (error) {
+    console.log(error);
     res.status(400).send(error.message);
   }
 };
