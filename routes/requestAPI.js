@@ -12,10 +12,25 @@ const homepage = async (req = request, res = response) => {
 
 const post = async (req = request, res = response) => {
   const { post } = req.body;
+  const user = req.currentUser;
   try {
+    const newProfile = {
+      currentProfilePicture: user.profile.currentProfilePicture,
+      currentBackgroundPicture: user.profile.currentBackgroundPicture,
+      photos: {
+        profilePictures: [...user.profile.photos.profilePictures],
+        backgroundPictures: [...user.profile.photos.backgroundPictures],
+        postPictures: [...user.profile.photos.postPictures, post.photo],
+        allPhotos: [...user.profile.photos.allPhotos, post.photo],
+      },
+    };
     const updatedUser = await User.findByIdAndUpdate(
       req.currentUser._id,
       {
+        $set: {
+          profile: newProfile,
+        },
+
         $push: {
           posts: {
             ref: {
