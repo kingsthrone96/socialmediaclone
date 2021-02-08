@@ -70,6 +70,31 @@ const getPosts = async (req = request, res = response) => {
   }
 };
 
+const changeProfilePictures = async (req = request, res = response) => {
+  const { image } = req.body;
+  try {
+    const newImage = await User.findByIdAndUpdate(
+      req.currentUser._id,
+      {
+        $set: {
+          profile: {
+            ...req.currentUser.profile,
+            [image.imageFor]: image.imagePath,
+          },
+        },
+      },
+      { new: true }
+    );
+
+    res.status(201).json({
+      imageFor: image.imageFor,
+      imagePath: newImage.profile[image.imageFor],
+    });
+  } catch (error) {
+    res.send(400).json(error.message);
+  }
+};
+
 const logout = (req = request, res = response) => {
   res.status(200).json({ message: "User Logged Out" });
 };
@@ -79,4 +104,5 @@ module.exports = {
   logout,
   post,
   getPosts,
+  changeProfilePictures,
 };
