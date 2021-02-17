@@ -22,6 +22,7 @@ module.exports = mongoose.connection.useDb("socialNetworking").model(
         ref: {
           ref_id: String,
           ref_name: String,
+          ref_pic: String,
         },
         textContent: String,
         photo: String,
