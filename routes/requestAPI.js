@@ -36,6 +36,7 @@ const post = async (req = request, res = response) => {
             ref: {
               ref_id: req.currentUser._id,
               ref_name: req.currentUser.name,
+              ref_pic: req.currentUser.profile.currentProfilePicture
             },
             ...post,
           },
@@ -66,7 +67,7 @@ const getPosts = async (req = request, res = response) => {
       res.send(sortedPosts);
     } else res.send(usersPosts);
   } catch (error) {
-    res.send(error);
+    res.status(400).send(error);
   }
 };
 
@@ -91,7 +92,8 @@ const changeProfilePictures = async (req = request, res = response) => {
       imagePath: newImage.profile[image.imageFor],
     });
   } catch (error) {
-    res.send(400).json(error.message);
+    console.log(error)
+    res.status(400).json(error.message);
   }
 };
 
